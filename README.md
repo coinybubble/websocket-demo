@@ -2,6 +2,12 @@
 
 A simple, single-file demonstration of real-time Bitcoin trading data using WebSocket connection. This demo allows connecting to the CoinyBubble free WebSocket stream and viewing live trading data in both raw and formatted views.
 
+## Try It Online
+
+**🔴 Live Demo: [socket.coinybubble.com](https://socket.coinybubble.com/)**
+
+No installation required - instantly see real-time Bitcoin trading data from major exchanges.
+
 ![Demo Screenshot](screenshot.png)
 
 ## Features
