@@ -16,36 +16,63 @@
         --warning: #f59e0b;
     }
 
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
     body {
         margin: 0;
-        padding: 20px;
+        padding: 12px;
         font-family: system-ui, -apple-system, sans-serif;
         background: var(--bg);
         color: var(--text);
         line-height: 1.5;
     }
 
+    /* Adaptive container padding */
     .container {
         max-width: 1200px;
         margin: 0 auto;
+        padding: 0 12px;
+    }
+
+    /* Adaptive headings */
+    h1 {
+        font-size: clamp(1.25rem, 5vw, 2rem);
+        margin-bottom: 1rem;
     }
 
     .card {
         background: var(--card-bg);
         border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
+        padding: clamp(12px, 3vw, 20px);
+        margin-bottom: 16px;
+        width: 100%;
     }
 
+    /* Input group with enhanced mobile layout */
     .input-group {
         display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .input-group input {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .input-group button {
+        flex: 1 1 auto;
+        min-width: min(30%, 120px);
     }
 
     input {
-        flex: 1;
-        padding: 10px;
+        width: 100%;
+        padding: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 4px;
         background: rgba(255, 255, 255, 0.05);
@@ -53,15 +80,25 @@
         font-size: 16px;
     }
 
+    /* Responsive buttons */
     button {
-        padding: 10px 20px;
+        padding: 12px;
         border: none;
         border-radius: 4px;
         background: var(--accent);
         color: white;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 14px;
         transition: opacity 0.2s;
+        touch-action: manipulation;
+        white-space: nowrap;
+    }
+
+    @media (min-width: 640px) {
+        button {
+            padding: 12px 16px;
+            font-size: 16px;
+        }
     }
 
     button:hover {
@@ -81,30 +118,23 @@
         background: var(--warning);
     }
 
+    /* Card header with status */
+    .card-header {
+        position: relative;
+        padding-right: 24px;
+        margin-bottom: 1rem;
+    }
+
+    /* Status indicator */
     .status {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 20px;
-    }
-
-    .display-toggle {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .display-toggle button {
-        opacity: 0.5;
-    }
-
-    .display-toggle button.active {
-        opacity: 1;
+        position: absolute;
+        top: 8px;
+        right: 0;
     }
 
     .status-dot {
-        width: 8px;
-        height: 8px;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
     }
 
@@ -117,27 +147,129 @@
         background: var(--error);
     }
 
+    /* Controls container */
+    .controls-container {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+    }
+
+    .controls-container input {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    /* Action buttons and format toggle */
+    .controls-wrapper {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    /* Format toggle switch */
+    .format-toggle {
+        display: inline-flex;
+        align-items: center;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        height: 38px;
+    }
+
+    .format-toggle button {
+        background: none;
+        border: none;
+        padding: 8px 12px;
+        font-size: 14px;
+        color: var(--text);
+        opacity: 0.7;
+        border-radius: 0;
+        height: 100%;
+    }
+
+    .format-toggle button.active {
+        background: var(--accent);
+        opacity: 1;
+    }
+
+    /* Action buttons */
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    button {
+        height: 38px;
+        padding: 0 16px;
+        white-space: nowrap;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .status-dot.connected {
+        background: var(--success);
+        animation: pulse 2s infinite;
+    }
+
+    .status-dot.disconnected {
+        background: var(--error);
+    }
+
+    /* Optimized trade list */
     .trades {
-        max-height: 600px;
+        max-height: calc(100vh - 300px);
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .trade {
-        padding: 10px;
+        padding: 12px;
         border-radius: 4px;
         margin-bottom: 8px;
         background: rgba(255, 255, 255, 0.03);
         font-family: monospace;
         white-space: pre-wrap;
         word-break: break-all;
+        font-size: 14px;
+    }
+
+    @media (min-width: 640px) {
+        .trade {
+            font-size: 16px;
+        }
     }
 
     .trade.raw {
         white-space: pre-wrap;
     }
 
-    .trade:hover {
-        background: rgba(255, 255, 255, 0.05);
+    /* Улучшенный скроллбар для мобильных */
+    @media (hover: hover) {
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
     }
 
     @keyframes pulse {
@@ -145,84 +277,69 @@
         50% { opacity: 0.5; }
         100% { opacity: 1; }
     }
-
-    ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.3);
-    }
     </style>
 </head>
 <body>
     <div id="app">
         <div class="container">
             <div class="card">
-                <h1>WebSocket Demo - CoinyBubble</h1>
+                <div class="card-header">
+                    <h1>WebSocket Demo - CoinyBubble</h1>
+                    <div class="status">
+                        <div
+                            class="status-dot"
+                            :class="{ connected: isConnected, disconnected: !isConnected }"
+                            :title="connectionStatus"
+                        ></div>
+                    </div>
+                </div>
 
-                <div class="input-group">
+                <div class="controls-container">
                     <input
                         v-model="wsUrl"
                         type="text"
                         placeholder="WebSocket URL"
                         :disabled="isConnected"
                     >
-                    <button
-                        v-if="!isConnected"
-                        @click="connect"
-                        :disabled="!wsUrl"
-                    >
-                        Connect
-                    </button>
-                    <button
-                        v-else
-                        @click="disconnect"
-                        class="disconnect"
-                    >
-                        Disconnect
-                    </button>
-                    <button
-                        @click="clearTrades"
-                        class="clear"
-                        :disabled="!trades.length"
-                    >
-                        Clear
-                    </button>
-                </div>
-
-                <div class="status">
-                    <div
-                        class="status-dot"
-                        :class="{ connected: isConnected, disconnected: !isConnected }"
-                    ></div>
-                    <span>{{ connectionStatus }}</span>
-                </div>
-
-                <div class="display-toggle">
-                    <button
-                        :class="{ active: displayMode === 'formatted' }"
-                        @click="displayMode = 'formatted'"
-                    >
-                        Formatted
-                    </button>
-                    <button
-                        :class="{ active: displayMode === 'raw' }"
-                        @click="displayMode = 'raw'"
-                    >
-                        Raw
-                    </button>
+                    <div class="controls-wrapper">
+                        <div class="action-buttons">
+                            <button
+                                v-if="!isConnected"
+                                @click="connect"
+                                :disabled="!wsUrl"
+                            >
+                                Connect
+                            </button>
+                            <button
+                                v-else
+                                @click="disconnect"
+                                class="disconnect"
+                            >
+                                Disconnect
+                            </button>
+                            <button
+                                @click="clearTrades"
+                                class="clear"
+                                :disabled="!trades.length"
+                            >
+                                Clear
+                            </button>
+                        </div>
+                        <div class="format-toggle">
+                            <button
+                                :class="{ active: displayMode === 'raw' }"
+                                @click="displayMode = 'raw'"
+                            >
+                                Raw
+                            </button>
+                            <button
+                                :class="{ active: displayMode === 'formatted' }"
+                                @click="displayMode = 'formatted'"
+                            >
+                                Formatted
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="trades">
